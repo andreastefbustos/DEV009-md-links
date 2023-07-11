@@ -1,11 +1,15 @@
 const fs = require ('fs');
 const pathFile = require('path');
-const { extractLinkText, pathExists } = require('./data.js')
+const { extractLinkText, pathExists, isMarkdownFile } = require('./data.js')
 
 // Funcion global 
 const mdLinks = (path) => {
   if (typeof path !== 'string') {
     throw new Error('The argument must be a string.');
+  }
+
+  if (!isMarkdownFile(path)) {
+    throw new Error('The file is not a Markdown file (.md).');
   }
 
   return new Promise((resolve, reject) => {

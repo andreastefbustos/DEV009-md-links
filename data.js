@@ -1,4 +1,5 @@
 const fs = require ('fs');
+const path = require('path');
 
 // Función para extraer el link del text
 const extractLinkText = (content) => {
@@ -21,4 +22,10 @@ const pathExists = (file) => {
     return fs.existsSync(file);
 }
 
-module.exports = { extractLinkText, pathExists };
+// Función que verifica si el archivo es markdown
+const isMarkdownFile = (file) => {
+    const fileExtension = path.extname(file);
+    return fileExtension === '.md';
+}
+
+module.exports = { extractLinkText, pathExists, isMarkdownFile };

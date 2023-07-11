@@ -24,4 +24,8 @@ describe('mdLinks', () => {
   test('Should throw an error if the argument is not a string', () => {
     expect(() => mdLinks(123)).toThrow('The argument must be a string.');
   });
+
+  test('Should throw an error if the file is not a markdown file', () => {
+    expect(() => mdLinks('test.txt')).toThrow('The file is not a Markdown file (.md).');
+  });
 });
