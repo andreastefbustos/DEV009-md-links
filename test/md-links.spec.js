@@ -1,6 +1,4 @@
 const { mdLinks } = require('../index.js');
-const { validateURL } = require('../data.js');
-
 
 describe('mdLinks', () => {
  
@@ -23,19 +21,3 @@ describe('mdLinks', () => {
     return expect(mdLinks(nonExistentPath)).rejects.toThrow('La ruta no existe.');
   });
 });
-
-describe('validateURL', () => {
-  test('Should return true if the URL is valid', () => {
-    const validURL = 'https://example.com';
-    expect(validateURL(validURL)).toBe(true);
-  });
-  
-  test('Should return true if the URL is not valid', () => {
-    const invalidURL = 'example.com';
-    expect(validateURL(invalidURL)).toBe(false);
-  });
-})
-
-
-
-

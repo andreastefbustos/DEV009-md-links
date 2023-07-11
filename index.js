@@ -1,6 +1,6 @@
 const fs = require ('fs');
 const pathFile = require('path');
-const { validateURL, extractLinkText, pathExists } = require('./data.js')
+const { extractLinkText, pathExists } = require('./data.js')
 
 // Funcion global 
 const mdLinks = (path) => {
@@ -13,16 +13,11 @@ const mdLinks = (path) => {
     }
 
     fs.readFile(absolutePath, 'utf8', (error, fileContent) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-
       const linkObjects = extractLinkText(fileContent);
 
       const links = linkObjects.map((link) => {
         return {
-          href: validateURL(link.href) ? link.href : undefined,
+          href: link.href,
           text: link.text,
           file: absolutePath,
         };
