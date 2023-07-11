@@ -4,6 +4,10 @@ const { extractLinkText, pathExists } = require('./data.js')
 
 // Funcion global 
 const mdLinks = (path) => {
+  if (typeof path !== 'string') {
+    throw new Error('The argument must be a string.');
+  }
+
   return new Promise((resolve, reject) => {
     const absolutePath = pathFile.resolve(path);
 

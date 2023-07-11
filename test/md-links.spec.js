@@ -20,4 +20,8 @@ describe('mdLinks', () => {
   
     return expect(mdLinks(nonExistentPath)).rejects.toThrow('La ruta no existe.');
   });
+
+  test('Should throw an error if the argument is not a string', () => {
+    expect(() => mdLinks(123)).toThrow('The argument must be a string.');
+  });
 });
