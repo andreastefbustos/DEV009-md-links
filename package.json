@@ -19,6 +19,7 @@
   "dependencies": {
     "@babel/core": "^7.22.8",
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
+    "axios": "^1.4.0",
     "eslint": "^8.44.0",
     "markdown-link-extractor": "^3.1.0"
   }
