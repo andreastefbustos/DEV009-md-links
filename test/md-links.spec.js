@@ -33,7 +33,7 @@ describe('mdLinks', () => {
     expect(() => mdLinks('test.txt')).toThrow('The file is not a Markdown file (.md).');
   });
 
-  // Testea si la se esta validando la URL
+  // Testea la validacion de la URL
   it('Returns correct data when validate is false', () => {
     return mdLinks(dataMock.pathFile, false)
       .then(links => {
