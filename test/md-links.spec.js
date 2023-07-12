@@ -18,7 +18,7 @@ describe('mdLinks', () => {
   
     const nonExistentPath = '/ruta/no/existente.md';
   
-    return expect(mdLinks(nonExistentPath)).rejects.toThrow('La ruta no existe.');
+    return expect(mdLinks(nonExistentPath)).rejects.toThrow('The route does not exist.');
   });
 
   test('Should throw an error if the argument is not a string', () => {
