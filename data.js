@@ -33,6 +33,9 @@ const isMarkdownFile = (file) => {
 const validateUrl = (url) => {
   return axios.get(url)
     .then(response => {
+      // console.log('Data:', response.data);  // Cuerpo de la respuesta
+      // console.log('Headers:', response.headers);  // Encabezados de la respuesta
+      // console.log('Status:', response.status); // Estado de la respuesta
       return {
         status: response.status,
         ok: response.status >= 200 && response.status < 400 ? 'ok' : 'fail'

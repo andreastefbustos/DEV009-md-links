@@ -36,6 +36,9 @@ const mdLinks = (path, validate = false) => {
               };
             })
         })
+        // validatePromises es un array de promesas, es decir, Promise.all(validatePromises) devuelve 
+        // una nueva promesa que se resuelve cuando todas las promesas en el array validatePromises se han resuelto.
+        // De esta manera, el código que consume esta promesa puede trabajar con un array de resultados en lugar de un array de promesas.
         Promise.all(validatePromises).then(links => resolve(links));
       } else {
         const links = linkObjects.map((link) => {
@@ -51,6 +54,10 @@ const mdLinks = (path, validate = false) => {
     });
   });
 };
+
+// La diferencia es que en el caso del if (validate), estoy trabajando con un array de promesas y necesito asegurarme de que todas se hayan 
+// resuelto antes de continuar. En el caso del else, estoy trabajando con un array de objetos, por lo que se puede resolver la promesa principal 
+// inmediatamente.
 
 module.exports = { mdLinks };
 
