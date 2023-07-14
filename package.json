@@ -1,6 +1,12 @@
 {
   "name": "md-links",
   "version": "0.1.0",
+  "description": "This is a markdown link extractor",
+  "main": "index.js",
+  "license": "MIT",
+  "authors": [
+    "Andrea Bustos <andreastefbustos@gmial.com>"
+  ],
   "engines": {
     "node": ">=16.x"
   },
@@ -11,16 +17,18 @@
   },
   "devDependencies": {
     "babel-jest": "^29.6.1",
+    "eslint": "^8.45.0",
     "jest": "^29.6.1"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "pretest": "echo \"Preparing the tests...\"",
+    "test": "jest --coverage",
+    "eslint": "eslint --ext .js ."
   },
   "dependencies": {
     "@babel/core": "^7.22.8",
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
     "axios": "^1.4.0",
-    "eslint": "^8.44.0",
     "markdown-link-extractor": "^3.1.0"
   }
 }
