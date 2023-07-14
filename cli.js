@@ -9,7 +9,7 @@ const { mdLinks } = require('./index.js')
 //     console.error(error);
 // });
 
-mdLinks('test.md', true)
+mdLinks('test-noLinks.md', true)
   .then((result) => {
     console.log(result);
   })

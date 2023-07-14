@@ -7,6 +7,14 @@ const mockAxios = {
           ok: 'ok'
         });
       }
+
+      // Testea si el URL tiene un estado de respuesta no exitoso
+      if (url === 'https://unsuccessful-url.com') {
+        return Promise.resolve({
+          status: 500,
+          ok: 'fail'
+        });
+      }
   
       // Simula una respuesta de error para otras URL
       return Promise.reject({

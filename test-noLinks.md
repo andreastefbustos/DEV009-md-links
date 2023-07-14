@@ -13,4 +13,4 @@ herramienta usando [Node.js](https), que lea y analice archivos
 en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
 
-![md-links](https:)
+![md-links](https://httpstat.us/450)

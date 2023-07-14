@@ -1,7 +1,7 @@
 const { mdLinks } = require('../index.js');
 const { validateUrl } = require('../data.js')
 const axios = require('axios');
-const mockAxios = require('../__mock__/axios.js');
+const mockAxios = require('../test/__mock__/axios.js');
 
 // Sobrescribe la instancia de axios con el mock
 axios.get = mockAxios.get;
@@ -79,10 +79,6 @@ describe('mdLinks', () => {
 
   // Testea si el URL tiene un estado de respuesta no exitoso
   it('Returns "fail" when the status is not between 200 and 399', () => {
-    mockAxios.get.mockImplementationOnce(() => 
-      Promise.resolve({ status: 500 })
-    );
-    
     return validateUrl('https://unsuccessful-url.com')
       .then(response => {
         expect(response).toEqual({
@@ -94,7 +90,7 @@ describe('mdLinks', () => {
 
   // Testea si el URL tiene un error de respuesta no existente
   it('Returns "No Response" when the response does not exist', () => {
-    mockAxios.get.mockImplementationOnce(() =>
+    mockAxios.get.mockImplementation(() =>
       Promise.reject({ response: undefined })
     );
 
