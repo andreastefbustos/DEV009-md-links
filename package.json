@@ -1,5 +1,5 @@
 {
-  "name": "md-links",
+  "name": "astef-md-links",
   "version": "0.1.0",
   "description": "This is a markdown link extractor",
   "main": "index.js",

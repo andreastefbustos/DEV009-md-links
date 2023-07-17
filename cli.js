@@ -1,7 +1,7 @@
 const { mdLinks } = require('./index.js')
 
-const cli = (path, argument) => {
-  if (argument === undefined) {
+const cli = (path, validate) => {
+  if (validate === undefined) {
     mdLinks(path)
       .then((result) => {
       console.log(result);
@@ -9,15 +9,15 @@ const cli = (path, argument) => {
       .catch((error) => {
       console.error(error);
       });
-  } else if (argument === true) {
-    mdLinks(path, argument)
+  } else if (validate === true) {
+    mdLinks(path, true)
       .then((result) => {
         console.log(result);
       })
       .catch((error) => {
         console.error(error);
       });
-  } else if (argument === false){
+  } else if (validate === false){
     mdLinks( path, false)
       .then((result) => {
       console.log(result);
