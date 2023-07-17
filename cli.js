@@ -47,4 +47,4 @@ const cli = (path, validate) => {
   }
 }
 
-cli('./testDirectory', true);
+cli('test.txt', true);

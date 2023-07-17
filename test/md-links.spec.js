@@ -34,26 +34,28 @@ describe('mdLinks', () => {
   });
 
   // Testea si el archivo tiene la extension .md 
-  // test('Should throw an error if the file is not a markdown file', () => {
-  //   expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown file (.md).');
-  // });
+  test('Should throw an error if the file is not a markdown file', () => {
+    expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown file (.md).');
+  });
 
   // --------> Test sobre function validateUrl data.js <---------
   // Testea cuando validate es true
-  // it('Should add status and ok properties when validate is true', () => {
-  //   const markdownPath = 'test.md';
-  //   return mdLinks(markdownPath, true)
-  //     .then(links => {
-  //       // Verifica que cada objeto de enlace tenga las propiedades correctas
-  //       links.forEach(link => {
-  //         expect(link).toHaveProperty('href');
-  //         expect(link).toHaveProperty('text');
-  //         expect(link).toHaveProperty('file');
-  //         expect(link).toHaveProperty('status');
-  //         expect(link).toHaveProperty('ok');
-  //       });
-  //     });
-  // });
+  it('Should add status and ok properties when validate is true', () => {
+    const markdownPath = 'test.md';
+    return mdLinks(markdownPath, true)
+      // para aplanar el array de arrays y no se quiere hacer en la funcion mdLink
+      // .then(arrays => arrays.flat())
+      .then(links => {
+        // Verifica que cada objeto de enlace tenga las propiedades correctas
+        links.forEach(link => {
+          expect(link).toHaveProperty('href');
+          expect(link).toHaveProperty('text');
+          expect(link).toHaveProperty('file');
+          expect(link).toHaveProperty('status');
+          expect(link).toHaveProperty('ok');
+        });
+      });
+  });
 
   // Testea si el URL no existe
   it('Returns "fail" when the URL does not exist', () => {
@@ -104,3 +106,4 @@ describe('mdLinks', () => {
   });
   // --------> Hasta aqui llegan los test completos sobre la funcion de validar el URL <---------
 });
+

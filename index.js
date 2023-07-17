@@ -40,7 +40,7 @@ const mdLinks = (path, validate = false) => {
       
       fs.readFile(file, 'utf-8', (error, fileContent) => {
         const linkObjects = extractLinkText(fileContent);
-
+        // console.log(`Links from ${file}:`, linkObjects)
         if(validate) {
           const validatePromises = linkObjects.map((link) => {
             return validateUrl(link.href)
@@ -73,7 +73,10 @@ const mdLinks = (path, validate = false) => {
   });
   
   // Devuelve una promesa que se resuelve cuando todas las promesas del array filePromises se resuelven.
-  return Promise.all(filePromises);
+  // para no devolver un array de arrays se puede aplanar el array de arrays antes de devolverlo. 
+  // Esto podría hacerse utilizando la función Array.prototype.flat
+  return Promise.all(filePromises)
+    .then(arrays => arrays.flat());
 };
 
 // La diferencia es que en el caso del if (validate), estoy trabajando con un array de promesas y necesito asegurarme de que todas se hayan 
