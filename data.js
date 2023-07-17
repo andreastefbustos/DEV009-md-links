@@ -49,4 +49,18 @@ const validateUrl = (url) => {
     });
 };
 
-module.exports = { extractLinkText, pathExists, isMarkdownFile, validateUrl };
+const readDir = (dir) => {
+  const pathDir = fs.readdirSync(dir);
+
+  //filtar solo los file con la extensión .md
+  const mdFiles = pathDir.filter(filename => filename.endsWith('.md'));
+
+  if (mdFiles.length === 0) {
+    throw new Error('No Markdown files found in the directory.');
+  }
+
+  // Devuelve rutas completas -> .testDirectory/testDir.md
+  return mdFiles.map(filename => path.join(dir, filename));
+}
+
+module.exports = { extractLinkText, pathExists, isMarkdownFile, validateUrl, readDir };
