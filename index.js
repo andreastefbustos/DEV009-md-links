@@ -34,7 +34,7 @@ const mdLinks = (path, validate = false) => {
     return new Promise((resolve, reject) => {
       // Verifica si el archivo es un .md (markdown)
       if (!isMarkdownFile(file)) {
-        reject(new Error('The file is not a Markdown file (.md).'));
+        reject(new Error('The file is not a Markdown (.md).'));
         return;
       }
       

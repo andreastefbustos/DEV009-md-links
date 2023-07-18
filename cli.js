@@ -11,6 +11,8 @@ const cli = (path, validate) => {
           console.error('Error: The provided path does not exist. Please provide a valid path.');
         } else if (error.message === 'The argument must be a string.') {
           console.error('Error: The argument is not a string.');
+        } else if (error.message === 'The file is not a Markdown (.md).'){
+          console.error('Error: The file is not a Markdown.')
         }
         else {
           console.error(error);
@@ -22,11 +24,14 @@ const cli = (path, validate) => {
         console.log(result);
       })
       .catch((error) => {
-        if (error.message === 'The route does not exist.') {
+        if (error.message === 'The route does not exist.'){
           console.error('Error: The provided path does not exist. Please provide a valid path.');
         } else if (error.message === 'The argument must be a string.'){
           console.error('Error: The argument is not a string.');
-        } else {
+        } else if (error.message === 'The file is not a Markdown (.md).'){
+          console.error('Error: The file is not a Markdown.')
+        }
+        else {
           console.error(error);
         }
       });
@@ -40,11 +45,14 @@ const cli = (path, validate) => {
           console.error('Error: The provided path does not exist. Please provide a valid path.');
         } else if (error.message === 'The argument must be a string.') {
           console.error('Error: The argument is not a string.');
-        } else {
+        } else if (error.message === 'The file is not a Markdown (.md).'){
+          console.error('Error: The file is not a Markdown.')
+        }
+        else {
         console.error(error);
         }
     });
   }
 }
 
-cli('test.txt', true);
+cli('test.txt');

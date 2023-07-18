@@ -35,7 +35,7 @@ describe('mdLinks', () => {
 
   // Testea si el archivo tiene la extension .md 
   test('Should throw an error if the file is not a markdown file', () => {
-    expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown file (.md).');
+    expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
   });
 
   // --------> Test sobre function validateUrl data.js <---------
