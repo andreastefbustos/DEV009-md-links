@@ -81,4 +81,4 @@ const cli = (path, validate) => {
   }
 }
 
-cli(123, true);
+cli('./testDirectory');

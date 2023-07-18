@@ -38,6 +38,30 @@ describe('mdLinks', () => {
     expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
   });
 
+  // Testea cuando rel parametro path recibe un directorio y este tiene subdirectorios
+  it('Should read directories with subdirectories and return the links from the .md files', () => {
+    const directoryPath = 'directory';
+  
+    return mdLinks(directoryPath).then(links => {
+      expect(links.length).toBeGreaterThan(0);
+  
+      links.forEach(link => {
+        expect(link).toHaveProperty('href');
+        expect(link).toHaveProperty('text');
+        expect(link).toHaveProperty('file');
+      });
+    });
+  });
+
+  // Testea cuando el directorio y subdirectorio no tiene archivos markdown
+  it('Should return an empty array if there are no .md files in the directory or subdirectories', () => {
+    const directoryPath = 'badDirectory';
+  
+    return mdLinks(directoryPath).then(links => {
+      expect(links).toEqual([]);
+    });
+  });
+
   // --------> Test sobre function validateUrl data.js <---------
   // Testea cuando validate es true
   it('Should add status and ok properties when validate is true', () => {

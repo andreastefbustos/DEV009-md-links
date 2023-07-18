@@ -49,18 +49,42 @@ const validateUrl = (url) => {
     });
 };
 
-const readDir = (dir) => {
-  const pathDir = fs.readdirSync(dir);
+// const readDir = (dir) => {
+//   const pathDir = fs.readdirSync(dir);
 
-  //filtar solo los file con la extensión .md
-  const mdFiles = pathDir.filter(filename => filename.endsWith('.md'));
+//   //filtar solo los file con la extensión .md
+//   const mdFiles = pathDir.filter(filename => filename.endsWith('.md'));
+
+//   if (mdFiles.length === 0) {
+//     throw new Error('No Markdown files found in the directory.');
+//   }
+
+//   // Devuelve rutas completas -> .testDirectory/testDir.md
+//   return mdFiles.map(filename => path.join(dir, filename));
+// }
+
+const readDir = (dir) => {
+  const entities = fs.readdirSync(dir);
+  let mdFiles = [];
+
+  entities.forEach(entity => {
+    const fullPath = path.join(dir, entity);
+    const entityStats = fs.statSync(fullPath);
+    // console.log(entityStats)
+
+    if (entityStats.isFile() && entity.endsWith('.md')) {
+      mdFiles.push(fullPath);
+    } else if (entityStats.isDirectory()) {
+      // Recursion
+      mdFiles = mdFiles.concat(readDir(fullPath));
+    }
+  });
 
   if (mdFiles.length === 0) {
-    throw new Error('No Markdown files found in the directory.');
+    throw new Error('No Markdown files found in the directory or subdirectories.');
   }
 
-  // Devuelve rutas completas -> .testDirectory/testDir.md
-  return mdFiles.map(filename => path.join(dir, filename));
+  return mdFiles;
 }
 
 module.exports = { extractLinkText, pathExists, isMarkdownFile, validateUrl, readDir };
