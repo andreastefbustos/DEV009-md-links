@@ -84,4 +84,4 @@ const cli = (path, validate) => {
   }
 }
 
-cli('test-noLinks.md', true);
+cli('subFolders', true);
