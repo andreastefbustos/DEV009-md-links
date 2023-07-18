@@ -1,7 +1,6 @@
 const fs = require ('fs');
 const pathFile = require('path');
-const { extractLinkText, pathExists, isMarkdownFile, validateUrl, readDir } = require('./data.js');
-// const { error } = require('console');
+const { extractLinks, pathExists, verifyMarkdown, validateLinks, readFileContent, readDir } = require('./data.js');
 
 // Funcion global 
 const mdLinks = (path, validate = false) => {
@@ -25,51 +24,16 @@ const mdLinks = (path, validate = false) => {
   try {
     files = isDirectory ? readDir(absolutePath) : [absolutePath];
   } catch (error){
-    console.error(error.message);
-    return Promise.resolve([]); // Retorna un array vacio si no se encontraron files .md
+    // return Promise.resolve([]); // Retorna un array vacio si no se encontraron files .md
+    return Promise.reject(new Error(error.message));
   }
   
   // Loop a traves de todos los files.
   const filePromises = files.map(file => {
-    return new Promise((resolve, reject) => {
-      // Verifica si el archivo es un .md (markdown)
-      if (!isMarkdownFile(file)) {
-        reject(new Error('The file is not a Markdown (.md).'));
-        return;
-      }
-      
-      fs.readFile(file, 'utf-8', (error, fileContent) => {
-        const linkObjects = extractLinkText(fileContent);
-        // console.log(`Links from ${file}:`, linkObjects)
-        if(validate) {
-          const validatePromises = linkObjects.map((link) => {
-            return validateUrl(link.href)
-              .then(validateResult => {
-                return {
-                  href: link.href,
-                  text: link.text,
-                  file: file,
-                  status: validateResult.status,
-                  ok: validateResult.ok
-                }
-              })
-          })
-          // validatePromises es un array de promesas, es decir, Promise.all(validatePromises) devuelve 
-          // una nueva promesa que se resuelve cuando todas las promesas en el array validatePromises se han resuelto.
-          // De esta manera, el código que consume esta promesa puede trabajar con un array de resultados en lugar de un array de promesas.
-          Promise.all(validatePromises).then(links => resolve(links));
-        } else {
-          const links = linkObjects.map((link) => {
-            return {
-              href: link.href,
-              text: link.text,
-              file: file,
-            };
-          });
-          resolve(links);
-        }
-      });
-    });
+    return verifyMarkdown(file)
+      .then(readFileContent)
+      .then(extractLinks)
+      .then(links => validateLinks(links, validate))
   });
   
   // Devuelve una promesa que se resuelve cuando todas las promesas del array filePromises se resuelven.

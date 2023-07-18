@@ -66,6 +66,9 @@ const handleError = (error) => {
     case 'The file is not a Markdown (.md).':
       console.error('Error: The file is not a Markdown.');
       break;
+    case 'No Markdown files found in the directory or subdirectories.':
+      console.error('Error: No Markdown files found in the directory or subdirectories.');
+      break;
     default:
       console.error(error);
   }
@@ -81,4 +84,4 @@ const cli = (path, validate) => {
   }
 }
 
-cli('./testDirectory');
+cli('test-noLinks.md', true);

@@ -38,7 +38,7 @@ describe('mdLinks', () => {
     expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
   });
 
-  // Testea cuando rel parametro path recibe un directorio y este tiene subdirectorios
+  // Testea cuando el parametro path recibe un directorio y este tiene subdirectorios
   it('Should read directories with subdirectories and return the links from the .md files', () => {
     const directoryPath = 'directory';
   
@@ -54,11 +54,11 @@ describe('mdLinks', () => {
   });
 
   // Testea cuando el directorio y subdirectorio no tiene archivos markdown
-  it('Should return an empty array if there are no .md files in the directory or subdirectories', () => {
-    const directoryPath = 'badDirectory';
-  
-    return mdLinks(directoryPath).then(links => {
-      expect(links).toEqual([]);
+  it('Should reject with an error if there are no .md files in the directory or subdirectories', () => {
+    const directoryPath = './badDirectory/';
+    
+    return mdLinks(directoryPath).catch(error => {
+      expect(error.message).toEqual('No Markdown files found in the directory or subdirectories.');
     });
   });
 
