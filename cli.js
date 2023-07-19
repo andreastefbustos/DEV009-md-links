@@ -1,4 +1,4 @@
-const { mdLinks } = require('./index.js')
+const { mdLinks } = require('./index.js');
 
 // const cli = (path, validate) => {
 //   if (validate === undefined) {
