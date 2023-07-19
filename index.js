@@ -3,7 +3,7 @@ const pathFile = require('path');
 const { extractLinks, pathExists, verifyMarkdown, validateLinks, readFileContent, readDir } = require('./data.js');
 
 // Funcion global 
-const mdLinks = (path, validate = false) => {
+const mdLinks = (path, options = { validate: false }) => {
   // cuando el argumento no es un string
   if (typeof path !== 'string') {
     return Promise.reject(new Error('The argument must be a string.'));
@@ -33,7 +33,7 @@ const mdLinks = (path, validate = false) => {
     return verifyMarkdown(file)
       .then(readFileContent)
       .then(extractLinks)
-      .then(links => validateLinks(links, validate))
+      .then(links => validateLinks(links, options))
   });
   
   // Devuelve una promesa que se resuelve cuando todas las promesas del array filePromises se resuelven.

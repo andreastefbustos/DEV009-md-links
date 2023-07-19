@@ -74,9 +74,9 @@ const handleError = (error) => {
   }
 };
 
-const cli = (path, validate) => {
-  if (typeof validate === 'undefined' || typeof validate === 'boolean') {
-    mdLinks(path, validate)
+const cli = (path, options = { validate: false }) => {
+  if (typeof options.validate === 'undefined' || typeof options.validate === 'boolean') {
+    mdLinks(path, options)
       .then((result) => {
         console.log(result);
       })
@@ -84,4 +84,4 @@ const cli = (path, validate) => {
   }
 }
 
-cli('subFolders', true);
+cli('badDirectory', {validate: true});

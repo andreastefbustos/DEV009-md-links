@@ -110,8 +110,8 @@ const validateUrl = (url) => {
 };
 
 // Función para validar los links
-const validateLinks = (links, validate) => {
-  if(!validate) {
+const validateLinks = (links, options = {}) => {
+  if(!options.validate) {
     return Promise.resolve(links);
   }
 

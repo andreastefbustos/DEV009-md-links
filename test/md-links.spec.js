@@ -66,7 +66,7 @@ describe('mdLinks', () => {
   // Testea cuando validate es true
   it('Should add status and ok properties when validate is true', () => {
     const markdownPath = 'README.md';
-    return mdLinks(markdownPath, true)
+    return mdLinks(markdownPath, {validate: true})
       // para aplanar el array de arrays y no se quiere hacer en la funcion mdLink
       // .then(arrays => arrays.flat())
       .then(links => {
