@@ -25,18 +25,13 @@ const readDir = (dir) => {
     }
   });
 
-  if (mdFiles.length === 0) {
-    throw new Error('No Markdown files found in the directory or subdirectories.');
-  }
-
   return mdFiles;
 }
 
 // ------------> Verificación de archivo Markdown <-------------------
 // Función que verifica si el archivo es markdown devolviendo un booleano
 const isMarkdownFile = (file) => {
-  const fileExtension = path.extname(file);
-  return fileExtension === '.md';
+  return path.extname(file) === '.md';
 }
 
 // Función para verificar si el archivo es de tipo Markdown devolviendo una promesa

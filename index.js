@@ -20,14 +20,11 @@ const mdLinks = (path, options = { validate: false }) => {
   const isDirectory = fs.lstatSync(absolutePath).isDirectory();
 
   // Si es un directorio, obten todos los .md files
-  let files;
-  try {
-    files = isDirectory ? readDir(absolutePath) : [absolutePath];
-  } catch (error){
-    // return Promise.resolve([]); // Retorna un array vacio si no se encontraron files .md
-    return Promise.reject(new Error(error.message));
+  let files = isDirectory ? readDir(absolutePath) : [absolutePath];
+  if (files.length == 0) {
+    return Promise.reject(new Error('No Markdown files found in the directory or subdirectories.'));
   }
-  
+
   // Loop a traves de todos los files.
   const filePromises = files.map(file => {
     return verifyMarkdown(file)
