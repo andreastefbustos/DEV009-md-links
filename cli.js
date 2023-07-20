@@ -20,14 +20,34 @@ const handleError = (error) => {
   }
 };
 
-const cli = (path, options) => {
-  // if (typeof options.validate === 'undefined' || typeof options.validate === 'boolean') {
-    mdLinks(path, options)
-      .then((result) => {
-        console.log(result);
-      })
-      .catch(handleError);
-  // }
+function showStats(result) {
+  return {
+      'Total': result.length,
+      'Unique': new Set(result.map((link) => link.href)).size
+  }
+
 }
 
-cli('subFolders', {validate: true});
+const cli = (path, argv) => {
+  let options = {validate: false};
+  if (argv.includes("--validate")) {
+    options.validate = true;
+  }
+
+  mdLinks(path, options)
+    .then((result) => {
+      if(argv.includes("--stats")) {
+        console.log(showStats(result))
+      } else{
+        console.log(result);
+      }
+    })
+    .catch(handleError);
+}
+
+if(process.argv.length < 3) {
+  console.error("Error: The argument 'Path' is required.")
+  return
+}
+
+cli(process.argv[2], process.argv);
