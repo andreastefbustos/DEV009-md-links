@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const { mdLinks } = require('./index.js');
 
 const handleError = (error) => {
@@ -29,4 +30,4 @@ const cli = (path, options) => {
   // }
 }
 
-cli('subFolders');
+cli('subFolders', {validate: true});
