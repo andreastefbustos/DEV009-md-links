@@ -20,13 +20,13 @@ const handleError = (error) => {
 };
 
 const cli = (path, options) => {
-  if (typeof options.validate === 'undefined' || typeof options.validate === 'boolean') {
+  // if (typeof options.validate === 'undefined' || typeof options.validate === 'boolean') {
     mdLinks(path, options)
       .then((result) => {
         console.log(result);
       })
       .catch(handleError);
-  }
+  // }
 }
 
-cli('subFolders', {validate: true});
+cli('subFolders');
