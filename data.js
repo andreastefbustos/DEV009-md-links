@@ -122,4 +122,41 @@ const validateLinks = (links, options = {}) => {
 }
 // ----------------------------------------------------------------------
 
-module.exports = { extractLinkText, extractLinks, pathExists, isMarkdownFile, verifyMarkdown, validateUrl, validateLinks, readFileContent, readDir };
+const handleError = (error) => {
+  switch (error.message) {
+    case 'The route does not exist.':
+      console.error('Error: The provided path does not exist. Please provide a valid path.');
+      break;
+    case 'The argument must be a string.':
+      console.error('Error: The argument is not a string.');
+      break;
+    case 'The file is not a Markdown (.md).':
+      console.error('Error: The file is not a Markdown.');
+      break;
+    case 'No Markdown files found in the directory or subdirectories.':
+      console.error('Error: No Markdown files found in the directory or subdirectories.');
+      break;
+    default:
+      console.error(error);
+  }
+};
+
+function showStats(result, showValidate) {
+  let stats = {
+    'Total': result.length,
+    'Unique': new Set(result.map((link) => link.href)).size,
+  }
+  
+  if(showValidate) {
+    // stats.Broken = result.filter((link) => link.status !== 200 && link.ok === 'fail').length
+    stats = {
+      ...stats,
+      "Broken": result.filter((link) => link.status !== 200 && link.ok === 'fail').length,
+    }
+  }
+  
+  return stats;
+}
+
+
+module.exports = { extractLinkText, extractLinks, pathExists, isMarkdownFile, verifyMarkdown, validateUrl, validateLinks, readFileContent, readDir, handleError, showStats };
