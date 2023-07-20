@@ -19,7 +19,7 @@ const handleError = (error) => {
   }
 };
 
-const cli = (path, options = { validate: false }) => {
+const cli = (path, options) => {
   if (typeof options.validate === 'undefined' || typeof options.validate === 'boolean') {
     mdLinks(path, options)
       .then((result) => {
@@ -29,4 +29,4 @@ const cli = (path, options = { validate: false }) => {
   }
 }
 
-cli('testDirectory', {validate: true});
+cli('subFolders', {validate: true});
