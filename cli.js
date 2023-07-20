@@ -1,5 +1,10 @@
 #!/usr/bin/env node
+/* eslint-disable no-undef */
 const { mdLinks } = require('./index.js');
+
+
+const argv = process.argv;
+const mdPath = process.argv[2];
 
 const handleError = (error) => {
   switch (error.message) {
@@ -25,7 +30,6 @@ function showStats(result) {
       'Total': result.length,
       'Unique': new Set(result.map((link) => link.href)).size
   }
-
 }
 
 const cli = (path, argv) => {
@@ -45,9 +49,9 @@ const cli = (path, argv) => {
     .catch(handleError);
 }
 
-if(process.argv.length < 3) {
+if(argv.length < 3) {
   console.error("Error: The argument 'Path' is required.")
   return
 }
 
-cli(process.argv[2], process.argv);
+cli(mdPath, argv);
