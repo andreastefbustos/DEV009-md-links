@@ -1,7 +1,7 @@
 const fs = require ('fs');
 const path = require('path');
 const axios = require('axios');
-// const chalk = require('chalk');
+const colors = require('ansi-colors');
 
 // Función para identificar si la ruta existe 
 const pathExists = (file) => {
@@ -122,16 +122,16 @@ const validateLinks = (links, options = {}) => {
 const handleError = (error) => {
   switch (error.message) {
     case 'The route does not exist.':
-      console.error('Error: The provided path does not exist. Please provide a valid path.');
+      console.error(colors.bold.red('Error: The provided path does not exist. Please provide a valid path.'));
       break;
     case 'The argument must be a string.':
-      console.error('Error: The argument is not a string.');
+      console.error(colors.bold.red('Error: The argument is not a string.'));
       break;
     case 'The file is not a Markdown (.md).':
-      console.error('Error: The file is not a Markdown.');
+      console.error(colors.bold.red('Error: The file is not a Markdown.'));
       break;
     case 'No Markdown files found in the directory or subdirectories.':
-      console.error('Error: No Markdown files found in the directory or subdirectories.');
+      console.error(colors.bold.red('Error: No Markdown files found in the directory or subdirectories.'));
       break;
     default:
       console.error(error);

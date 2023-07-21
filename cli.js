@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 const { mdLinks } = require('./index.js');
 const { handleError, showStats } = require('./data.js');
+const colors = require('ansi-colors');
 
 const argv = process.argv;
 const mdPath = process.argv[2];
@@ -9,17 +10,17 @@ const validOptions = ["--validate", "--stats"];
 
 const cli = (path, argv) => {
   if(argv.length < 3) {
-    console.error("Error: The argument 'Path' is required.")
-    return
+    console.error(colors.bold.red("Error: The argument 'Path' is required."))
+    return;
   }
 
   if(argv[3] !== undefined && !validOptions.includes(argv[3])) {
-    console.error(`Error: The argument '${argv[3]}' is invalid, the valid options are: ${validOptions.join(", ")}`)
+    console.error(colors.bold.greenBright(`Error: The argument '${argv[3]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
     return;
   }
 
   if(argv[4] !== undefined && !validOptions.includes(argv[4])) {
-    console.error(`Error: The argument '${argv[4]}' is invalid, the valid options are: ${validOptions.join(", ")}`)
+    console.error(colors.bold.greenBright(`Error: The argument '${argv[4]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
     return;
   }
 
