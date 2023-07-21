@@ -2,6 +2,7 @@ const { mdLinks } = require('../index.js');
 const { validateUrl, showStats, handleError } = require('../data.js')
 const axios = require('axios');
 const mockAxios = require('../test/__mock__/axios.js');
+const colors = require('ansi-colors');
 
 // Sobrescribe la instancia de axios con el mock
 axios.get = mockAxios.get;
@@ -145,10 +146,10 @@ describe('handleError', () => {
 
   it('should print correct error message for different error cases', () => {
     const errors = [
-      { input: 'The route does not exist.', output: 'Error: The provided path does not exist. Please provide a valid path.' },
-      { input: 'The argument must be a string.', output: 'Error: The argument is not a string.' },
-      { input: 'The file is not a Markdown (.md).', output: 'Error: The file is not a Markdown.' },
-      { input: 'No Markdown files found in the directory or subdirectories.', output: 'Error: No Markdown files found in the directory or subdirectories.' },
+      { input: 'The route does not exist.', output: colors.bold.red('Error: The provided path does not exist. Please provide a valid path.') },
+      { input: 'The argument must be a string.', output: colors.bold.red('Error: The argument is not a string.')},
+      { input: 'The file is not a Markdown (.md).', output: colors.bold.red('Error: The file is not a Markdown.')},
+      { input: 'No Markdown files found in the directory or subdirectories.', output: colors.bold.red('Error: No Markdown files found in the directory or subdirectories.')},
       { input: 'Unexpected error.', output: new Error('Unexpected error.') },
     ];
 
