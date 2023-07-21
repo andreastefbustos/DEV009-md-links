@@ -15,12 +15,12 @@ const cli = (path, argv) => {
   }
 
   if(argv[3] !== undefined && !validOptions.includes(argv[3])) {
-    console.error(colors.bold.greenBright(`Error: The argument '${argv[3]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
+    console.error(colors.bold.red(`Error: The argument '${argv[3]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
     return;
   }
 
   if(argv[4] !== undefined && !validOptions.includes(argv[4])) {
-    console.error(colors.bold.greenBright(`Error: The argument '${argv[4]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
+    console.error(colors.bold.red(`Error: The argument '${argv[4]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
     return;
   }
 
@@ -32,7 +32,6 @@ const cli = (path, argv) => {
   mdLinks(path, options)
     .then((result) => {
       if(argv.includes("--stats")) {
-        console.log(options)
         console.log(showStats(result, options.validate))
       } else{
         console.log(result);
