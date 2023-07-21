@@ -1,6 +1,7 @@
 const fs = require ('fs');
 const path = require('path');
 const axios = require('axios');
+// const chalk = require('chalk');
 
 // Función para identificar si la ruta existe 
 const pathExists = (file) => {
