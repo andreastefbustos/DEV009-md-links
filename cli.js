@@ -14,6 +14,17 @@ const cli = (path, argv) => {
     return;
   }
 
+  if (argv.includes("--help")) {
+    console.log(colors.bold.greenBright('Explore the mdLinks Library.\n'));
+    console.log('\nUsage: md-links <path> [options]\n');
+    console.log('Options:');
+    console.log(colors.bold.cyan('md-links ./docs'), '                        Analyze links in the "docs" folder');
+    console.log(colors.bold.cyan('md-links ./docs --validate'), '             Verify links and their status');
+    console.log(colors.bold.cyan('md-links ./docs --stats'), '                Get statistics of total and unique links');
+    console.log(colors.bold.cyan('md-links ./docs --validate --stats'), '     Get complete link analysis including broken links');
+    return;
+  }
+
   if(argv[3] !== undefined && !validOptions.includes(argv[3])) {
     console.error(colors.bold.red(`Error: The argument '${argv[3]}' is invalid, the valid options are: ${validOptions.join(", ")}`))
     return;

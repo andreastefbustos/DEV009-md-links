@@ -10,7 +10,7 @@ axios.get = mockAxios.get;
 describe('mdLinks', () => {
   // Testea si es un promise y retorna un array 
   it('Should return a Promise', (done) => {
-    mdLinks('README.md')
+    mdLinks('./README/README.md')
       .then((links) => {
         expect(links).toBeInstanceOf(Array);
         done(); // Llama a done() para indicar que la prueba ha finalizado
@@ -36,12 +36,12 @@ describe('mdLinks', () => {
 
   // Testea si el archivo tiene la extension .md 
   test('Should throw an error if the file is not a markdown file', () => {
-    expect(() => mdLinks('./test_testing/test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
+    expect(() => mdLinks('./data_testing/test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
   });
 
   // Testea cuando el parametro path recibe un directorio y este tiene subdirectorios
   it('Should read directories with subdirectories and return the links from the .md files', () => {
-    const directoryPath = 'test_testing';
+    const directoryPath = 'data_testing';
   
     return mdLinks(directoryPath).then(links => {
       expect(links.length).toBeGreaterThan(0);
@@ -56,7 +56,7 @@ describe('mdLinks', () => {
 
   // Testea cuando el directorio y subdirectorio no tiene archivos markdown
   it('Should reject with an error if there are no .md files in the directory or subdirectories', () => {
-    const directoryPath = './test_testing/badDirectory';
+    const directoryPath = './data_testing/badDirectory';
     
     return mdLinks(directoryPath).catch(error => {
       expect(error.message).toEqual('No Markdown files found in the directory or subdirectories.');
@@ -66,7 +66,7 @@ describe('mdLinks', () => {
   // --------> Test sobre function validateUrl data.js <---------
   // Testea cuando validate es true
   it('Should add status and ok properties when validate is true', () => {
-    const markdownPath = 'README.md';
+    const markdownPath = './README/README.md';
     return mdLinks(markdownPath, {validate: true})
       // para aplanar el array de arrays y no se quiere hacer en la funcion mdLink
       // .then(arrays => arrays.flat())
