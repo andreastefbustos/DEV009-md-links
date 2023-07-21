@@ -40,9 +40,5 @@ const mdLinks = (path, options = { validate: false }) => {
     .then(arrays => arrays.flat());
 };
 
-// La diferencia es que en el caso del if (validate), estoy trabajando con un array de promesas y necesito asegurarme de que todas se hayan 
-// resuelto antes de continuar. En el caso del else, estoy trabajando con un array de objetos, por lo que se puede resolver la promesa principal 
-// inmediatamente.
-
 module.exports = { mdLinks };
 

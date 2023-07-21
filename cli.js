@@ -23,7 +23,6 @@ const cli = (path, argv) => {
     return;
   }
 
-
   let options = {validate: false};
   if (argv.includes("--validate")) {
     options.validate = true;
