@@ -1,5 +1,5 @@
 const { mdLinks } = require('../index.js');
-const { validateUrl } = require('../data.js')
+const { validateUrl, showStats, handleError } = require('../data.js')
 const axios = require('axios');
 const mockAxios = require('../test/__mock__/axios.js');
 
@@ -35,12 +35,12 @@ describe('mdLinks', () => {
 
   // Testea si el archivo tiene la extension .md 
   test('Should throw an error if the file is not a markdown file', () => {
-    expect(() => mdLinks('test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
+    expect(() => mdLinks('./test_testing/test.txt')).rejects.toThrow('The file is not a Markdown (.md).');
   });
 
   // Testea cuando el parametro path recibe un directorio y este tiene subdirectorios
   it('Should read directories with subdirectories and return the links from the .md files', () => {
-    const directoryPath = 'subFolders';
+    const directoryPath = 'test_testing';
   
     return mdLinks(directoryPath).then(links => {
       expect(links.length).toBeGreaterThan(0);
@@ -55,7 +55,7 @@ describe('mdLinks', () => {
 
   // Testea cuando el directorio y subdirectorio no tiene archivos markdown
   it('Should reject with an error if there are no .md files in the directory or subdirectories', () => {
-    const directoryPath = './badDirectory/';
+    const directoryPath = './test_testing/badDirectory';
     
     return mdLinks(directoryPath).catch(error => {
       expect(error.message).toEqual('No Markdown files found in the directory or subdirectories.');
@@ -129,5 +129,60 @@ describe('mdLinks', () => {
       });
   });
   // --------> Hasta aqui llegan los test completos sobre la funcion de validar el URL <---------
+});
+
+
+describe('handleError', () => {
+  let errorSpy;
+
+  beforeEach(() => {
+    errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    errorSpy.mockRestore();
+  });
+
+  it('should print correct error message for different error cases', () => {
+    const errors = [
+      { input: 'The route does not exist.', output: 'Error: The provided path does not exist. Please provide a valid path.' },
+      { input: 'The argument must be a string.', output: 'Error: The argument is not a string.' },
+      { input: 'The file is not a Markdown (.md).', output: 'Error: The file is not a Markdown.' },
+      { input: 'No Markdown files found in the directory or subdirectories.', output: 'Error: No Markdown files found in the directory or subdirectories.' },
+      { input: 'Unexpected error.', output: new Error('Unexpected error.') },
+    ];
+
+    errors.forEach(({ input, output }) => {
+      handleError(new Error(input));
+      expect(errorSpy).toHaveBeenCalledWith(output);
+    });
+  });
+});
+
+
+describe('showStats', () => {
+  const result = [
+    { href: 'https://example1.com', status: 200, ok: 'ok' },
+    { href: 'https://example2.com', status: 200, ok: 'ok' },
+    { href: 'https://example3.com', status: 404, ok: 'fail' },
+    { href: 'https://example1.com', status: 200, ok: 'ok' },
+  ];
+
+  it('should return total and unique link counts', () => {
+    const stats = showStats(result, false);
+    expect(stats).toEqual({
+      'Total': 4,
+      'Unique': 3,
+    });
+  });
+
+  it('should return total, unique, and broken link counts when showValidate is true', () => {
+    const stats = showStats(result, true);
+    expect(stats).toEqual({
+      'Total': 4,
+      'Unique': 3,
+      'Broken': 1,
+    });
+  });
 });
 
