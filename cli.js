@@ -9,19 +9,19 @@ const mdPath = process.argv[2];
 const validOptions = ["--validate", "--stats"];
 
 const cli = (path, argv) => {
-  if(argv.length < 3) {
-    console.error(colors.bold.red("Error: The argument 'Path' is required."))
-    return;
-  }
-
   if (argv.includes("--help")) {
     console.log(colors.bold.greenBright('Explore the mdLinks Library.\n'));
     console.log('\nUsage: md-links <path> [options]\n');
-    console.log('Options:');
+    console.log('Commands:');
     console.log(colors.bold.cyan('md-links ./docs'), '                        Analyze links in the "docs" folder');
     console.log(colors.bold.cyan('md-links ./docs --validate'), '             Verify links and their status');
     console.log(colors.bold.cyan('md-links ./docs --stats'), '                Get statistics of total and unique links');
     console.log(colors.bold.cyan('md-links ./docs --validate --stats'), '     Get complete link analysis including broken links');
+    return;
+  }
+
+  if(argv.length < 3) {
+    console.error(colors.bold.red("Error: The argument 'Path' is required."))
     return;
   }
 
