@@ -1,6 +1,6 @@
 {
   "name": "md-links-asb",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Validates each link, providing you with comprehensive status and information, including broken links.",
   "main": "index.js",
   "license": "MIT",
