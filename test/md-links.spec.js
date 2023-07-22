@@ -10,7 +10,7 @@ axios.get = mockAxios.get;
 describe('mdLinks', () => {
   // Testea si es un promise y retorna un array 
   it('Should return a Promise', (done) => {
-    mdLinks('./README/README.md')
+    mdLinks('./README.md')
       .then((links) => {
         expect(links).toBeInstanceOf(Array);
         done(); // Llama a done() para indicar que la prueba ha finalizado
@@ -66,7 +66,7 @@ describe('mdLinks', () => {
   // --------> Test sobre function validateUrl data.js <---------
   // Testea cuando validate es true
   it('Should add status and ok properties when validate is true', () => {
-    const markdownPath = './README/README.md';
+    const markdownPath = './README.md';
     return mdLinks(markdownPath, {validate: true})
       // para aplanar el array de arrays y no se quiere hacer en la funcion mdLink
       // .then(arrays => arrays.flat())
