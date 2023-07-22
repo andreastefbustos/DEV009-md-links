@@ -4,28 +4,22 @@
 
 * [1. Preámbulo](#1-preámbulo)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Instalación](#3-instalación)
-* [4. Comandos](#4-comandos)
-* [5. Errores](#5-errores)
+* [3. Documentación](#3-documentación)
+* [4. Diagrama de Flujo](#4-diagrama-de-flujo)
+* [5. Guía de Uso](#5-guia-de-uso)
 
 ***
 
 ## 1. Preámbulo
 
-[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
-ligero muy popular entre developers. Es usado en muchísimas plataformas que
-manejan texto plano (GitHub, foros, blogs, ...) y es muy común
-encontrar varios archivos en ese formato en cualquier tipo de repositorio
-(empezando por el tradicional `README.md`).
+[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado ligero muy popular entre developers. Es usado en muchísimas plataformas que manejan texto plano (GitHub, foros, blogs, ...) y es muy común encontrar varios archivos en ese formato en cualquier tipo de repositorio (empezando por el tradicional `README.md`).
 
-Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
-muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
-la información que se quiere compartir.
+Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de la información que se quiere compartir.
 
-Dentro de una comunidad de código abierto, nos han propuesto crear una
-herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
-en formato `Markdown`, para verificar los links que contengan y reportar
+Dentro de una comunidad de código abierto, nos han propuesto crear una herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos en formato `Markdown`, para verificar los links que contengan y reportar
 algunas estadísticas.
+
+![md-links](https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg)
 
 ## 2. Resumen del proyecto
 
@@ -35,17 +29,171 @@ Con mdLinks, podemos asegurarnos de que los enlaces presentes en nuestros archiv
 
 Gracias a la facilidad de uso y la capacidad de análisis de `mdLinks`, podemos mantener la integridad y la calidad de la documentación de nuestros proyectos, garantizando que los enlaces estén siempre actualizados y en buen estado.
 
-## 3. Instalación
+## 3. Documentación 
+
+### 1) JavaScript API
+
+El módulo debe de  **importarse** en otros scripts de Node.js y debe ofrecer la
+siguiente interfaz:
+
+```js
+// Importar la función mdLinks desde la biblioteca
+const { mdLinks } = require('md-links-asb');
+
+// Definir el path y las opciones (si es necesario)
+const path = 'ruta/a/tu/archivo.md';
+const options = {
+  validate: true, // Cambiar a false si no se necesita validar los enlaces
+};
+
+// Utilizar la función mdLinks
+mdLinks(path, options)
+  .then((links) => {
+    // Hacer algo con los links obtenidos, por ejemplo, mostrarlos en la consola
+    console.log(links);
+  })
+  .catch((error) => {
+    // Manejar cualquier error que ocurra durante la ejecución de mdLinks
+    console.error('Error:', error.message);
+  });
+```
+
+#### `mdLinks(path, options)`
+
+##### Argumentos
+
+* `path`: Ruta **absoluta** o **relativa** al **archivo** o **directorio**.
+Si la ruta pasada es relativa, debe resolverse como relativa al directorio desde donde se invoca node - _current working directory_).
+* `options`: Un objeto con **únicamente** la siguiente propiedad:
+  - `validate`: Booleano que determina si se desea validar los links
+    encontrados.
+
+##### Valor de retorno
+
+La función debe **retornar una promesa** (`Promise`) que **resuelva a un arreglo**
+(`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
+las siguientes propiedades
+
+Con `validate:false` :
+
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+
+Con `validate:true` :
+
+* `href`: URL encontrada.
+* `text`: Texto que aparecía dentro del link (`<a>`).
+* `file`: Ruta del archivo donde se encontró el link.
+* `status`: Código de respuesta HTTP.
+* `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
+
+#### Ejemplo (resultados como comentarios)
+
+```js
+const mdLinks = require("md-links");
+
+mdLinks("./some/example.md")
+  .then(links => {
+    // => [{ href, text, file }, ...]
+  })
+  .catch(console.error);
+
+mdLinks("./some/example.md", { validate: true })
+  .then(links => {
+    // => [{ href, text, file, status, ok }, ...]
+  })
+  .catch(console.error);
+
+mdLinks("./some/dir")
+  .then(links => {
+    // => [{ href, text, file }, ...]
+  })
+  .catch(console.error);
+```
+
+### 2) CLI (Command Line Interface - Interfaz de Línea de Comando)
+
+El ejecutable de nuestra aplicación se ejecuta de la siguiente manera a través de la **terminal**:
+
+`md-links <path-to-file> [options]`
+
+Por ejemplo:
+
+```sh
+$ md-links ./some/example.md
+./some/example.md http://algo.com/2/3/ Link a algo
+./some/example.md https://otra-cosa.net/algun-doc.html algún doc
+./some/example.md http://google.com/ Google
+```
+
+#### Options
+
+##### `--validate`
+
+Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP paraaveriguar si el link funciona o no. Si el link resulta en una redirección a una URL que responde ok, entonces consideraremos el link como ok.
+
+Por ejemplo:
+
+```sh
+$ md-links ./some/example.md --validate
+./some/example.md http://algo.com/2/3/ ok 200 Link a algo
+./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
+./some/example.md http://google.com/ ok 301 Google
+```
+
+Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de la URL, así como el status de la respuesta recibida a la petición HTTP a dicha URL.
+
+##### `--stats`
+
+Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas básicas sobre los links.
+
+```sh
+$ md-links ./some/example.md --stats
+Total: 3
+Unique: 3
+```
+
+También podemos combinar `--stats` y `--validate` para obtener estadísticas que necesiten de los resultados de la validación.
+
+```sh
+$ md-links ./some/example.md --stats --validate
+Total: 3
+Unique: 3
+Broken: 1
+```
+
+## 4. Diagrama de Flujo
+
+## 5. Guía de Uso
+
+### Instalación
+
+Se puede ejecutar de dos maneras:
+
+1. Desde la terminal del usuario, utilizando el repositorio.
+
+```shell
+npm install github:andreastefbustos/DEV009-md-links
+```
+
+<img width="500" src="./npm-install-packege.jpeg" >
+
+2. Desde la terminal del usurio, utilizando el paquete publicado en npm
 
 Se debe de ejecutar este comando
 
-```npm i md-links-asb```
+```shell
+npm i md-links-asb
+```
 
-## 4. Comandos
+### Comandos
 
 1. Accede a la terminal y ejecuta el siguiente comando:
 
-```md-links --help```
+```shell
+md-links --help
+```
 
 El primer comando mostrará las instrucciones para ejecutar el programa y los ejecutables disponibles.
 
@@ -53,7 +201,7 @@ El primer comando mostrará las instrucciones para ejecutar el programa y los ej
 Explore the mdLinks Library.
 
 
-Usage: md-links <path> [options]
+Usage: md-links ./docs [options]
 
 Comandos:
 md-links ./docs                         Analyze links in the "docs" folder
@@ -66,7 +214,9 @@ Asegúrate de seguir las instrucciones detalladamente para obtener el resultado 
 
 2. Al ejecutar el siguiente comando 
 
-```md-links ./docs```
+```shell
+md-links ./docs
+```
 
 Obtendremos un arreglo de objetos con las propiedades:
 
@@ -111,7 +261,10 @@ Obtendremos un arreglo de objetos con las propiedades:
 
 3. Comando `--validate`
 
-Ejecutar --> `md-links ./docs --validate`
+Ejecutar --> 
+```shell 
+md-links ./docs --validate
+```
 
 Obtendremos un arreglo de objetos con las propiedades:
 
@@ -170,11 +323,14 @@ Obtendremos un arreglo de objetos con las propiedades:
 
 4. Comando `--stats`
 
-Ejecutar --> `md-links ./docs --stats`
+Ejecutar --> 
+```shell
+md-links ./docs --stats
+```
 
 Al utilizar esta opción, podrás obtener estadísticas relacionadas con los enlaces presentes en los archivos Markdown.
 
-```sh
+```shell
 $ md-links ./some/example.md --stats
 Total: 3
 Unique: 3
@@ -188,7 +344,10 @@ Utiliza esta opción para obtener una visión general de la cantidad total de en
 
 5. Comando `--validate` y `--stats`
 
-Ejecutar --> `md-links ./docs --validate --stats`
+Ejecutar --> 
+```shell
+md-links ./docs --validate --stats
+```
 
 También podemos combinar `--validate` y `--stats` para obtener estadísticas que necesiten de los resultados de la validación.
 
@@ -201,7 +360,7 @@ Broken: 1
 
 * `Broken:` El número de enlaces que están rotos o no devuelven un código de estado 200.
 
-## 5. Errores
+### Errores
 
 * Cuando el `./docs` no existe
 ```sh
