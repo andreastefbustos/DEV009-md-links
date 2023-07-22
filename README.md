@@ -169,15 +169,31 @@ Broken: 1
 
 ### Instalación
 
+Se puede ejecutar de dos maneras:
+
+1. Desde la terminal del usuario, utilizando el repositorio.
+
+```shell
+npm install github:andreastefbustos/DEV009-md-links
+```
+
+<img width="500" src="./npm-install-packege.jpeg" >
+
+2. Desde la terminal del usurio, utilizando el paquete publicado en npm
+
 Se debe de ejecutar este comando
 
-```npm i md-links-asb```
+```shell
+npm i md-links-asb
+```
 
 ### Comandos
 
 1. Accede a la terminal y ejecuta el siguiente comando:
 
-```md-links --help```
+```shell
+md-links --help
+```
 
 El primer comando mostrará las instrucciones para ejecutar el programa y los ejecutables disponibles.
 
@@ -185,7 +201,7 @@ El primer comando mostrará las instrucciones para ejecutar el programa y los ej
 Explore the mdLinks Library.
 
 
-Usage: md-links <path> [options]
+Usage: md-links ./docs [options]
 
 Comandos:
 md-links ./docs                         Analyze links in the "docs" folder
@@ -198,7 +214,9 @@ Asegúrate de seguir las instrucciones detalladamente para obtener el resultado 
 
 2. Al ejecutar el siguiente comando 
 
-```md-links ./docs```
+```shell
+md-links ./docs
+```
 
 Obtendremos un arreglo de objetos con las propiedades:
 
@@ -243,7 +261,10 @@ Obtendremos un arreglo de objetos con las propiedades:
 
 3. Comando `--validate`
 
-Ejecutar --> `md-links ./docs --validate`
+Ejecutar --> 
+```shell 
+md-links ./docs --validate
+```
 
 Obtendremos un arreglo de objetos con las propiedades:
 
@@ -302,11 +323,14 @@ Obtendremos un arreglo de objetos con las propiedades:
 
 4. Comando `--stats`
 
-Ejecutar --> `md-links ./docs --stats`
+Ejecutar --> 
+```shell
+md-links ./docs --stats
+```
 
 Al utilizar esta opción, podrás obtener estadísticas relacionadas con los enlaces presentes en los archivos Markdown.
 
-```sh
+```shell
 $ md-links ./some/example.md --stats
 Total: 3
 Unique: 3
@@ -320,7 +344,10 @@ Utiliza esta opción para obtener una visión general de la cantidad total de en
 
 5. Comando `--validate` y `--stats`
 
-Ejecutar --> `md-links ./docs --validate --stats`
+Ejecutar --> 
+```shell
+md-links ./docs --validate --stats
+```
 
 También podemos combinar `--validate` y `--stats` para obtener estadísticas que necesiten de los resultados de la validación.
 
