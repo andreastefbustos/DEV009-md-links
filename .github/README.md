@@ -7,6 +7,7 @@
 * [3. Documentación](#3-documentación)
 * [4. Diagrama de Flujo](#4-diagrama-de-flujo)
 * [5. Guía de Uso](#5-guia-de-uso)
+* [6. Planificación y Organización del Proyecto](#5-planificacion-y-organizacion-del-proyecto)
 
 ***
 
@@ -192,16 +193,20 @@ Se debe de ejecutar este comando
 npm i md-links-asb
 ```
 
+"Puedes encontrar el paquete del proyecto publicado en npm haciendo clic [aquí](https://www.npmjs.com/package/md-links-asb)."
+
 ### Comandos
 
 1. Accede a la terminal y ejecuta el siguiente comando:
 
+``Input:``
 ```shell
 md-links --help
 ```
 
 El primer comando mostrará las instrucciones para ejecutar el programa y los ejecutables disponibles.
 
+``Output:``
 ```sh
 Explore the mdLinks Library.
 
@@ -219,6 +224,7 @@ Asegúrate de seguir las instrucciones detalladamente para obtener el resultado 
 
 2. Al ejecutar el siguiente comando 
 
+``Input:``
 ```shell
 md-links ./docs
 ```
@@ -229,6 +235,7 @@ Obtendremos un arreglo de objetos con las propiedades:
 * `text`: Texto que aparecía dentro del link (`<a>`).
 * `file`: Ruta del archivo donde se encontró el link.
 
+``Output:``
 ```shell
 [
   {
@@ -266,7 +273,9 @@ Obtendremos un arreglo de objetos con las propiedades:
 
 3. Comando `--validate`
 
-Ejecutar --> 
+Ejecutar -->
+
+``Input:``
 ```shell 
 md-links ./docs --validate
 ```
@@ -279,6 +288,7 @@ Obtendremos un arreglo de objetos con las propiedades:
 * `status`: Código de respuesta HTTP.
 * `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
 
+``Output:``
 ```shell
 [
   {
@@ -328,13 +338,16 @@ Obtendremos un arreglo de objetos con las propiedades:
 
 4. Comando `--stats`
 
-Ejecutar --> 
+Ejecutar -->
+
+``Input:``
 ```shell
 md-links ./docs --stats
 ```
 
 Al utilizar esta opción, podrás obtener estadísticas relacionadas con los enlaces presentes en los archivos Markdown.
 
+``Output:``
 ```shell
 $ md-links ./some/example.md --stats
 Total: 3
@@ -349,13 +362,16 @@ Utiliza esta opción para obtener una visión general de la cantidad total de en
 
 5. Comando `--validate` y `--stats`
 
-Ejecutar --> 
+Ejecutar -->
+
+``Input:``
 ```shell
 md-links ./docs --validate --stats
 ```
 
 También podemos combinar `--validate` y `--stats` para obtener estadísticas que necesiten de los resultados de la validación.
 
+``Output:``
 ```sh
 $ md-links ./some/example.md --stats --validate
 Total: 3
@@ -390,3 +406,25 @@ Error: The file is not a Markdown.
 md-links ./docs --novalidate
 Error: The argument '--novalidate' is invalid, the valid options are: --validate, --stats
 ```
+
+## 6. Planificación y Organización del Proyecto
+
+Este proyecto se desarrolla siguiendo una metodología ágil y aprovecha los tableros de proyectos de GitHub para una organización eficiente y un seguimiento efectivo del progreso.
+
+### Fases del Proyecto
+
+Se ha dividido el proyecto en cinco fases diferentes, cada una de ellas representa una etapa significativa del desarrollo.
+
+[HITOS:paso a paso para la elaboración del proyecto](https://davichobits.github.io/demo-mdlinks/)
+
+### Tablero de Proyectos de GitHub (Github projects)
+
+Durante el desarrollo del proyecto, se utilizó el tablero de proyectos de GitHub para gestionar las tareas y seguir el progreso de manera sistemática. El tablero está organizado en varias columnas que representan diferentes etapas del desarrollo:
+
+1. Por Hacer: Esta columna contiene todas las tareas que están planificadas pero aún no han comenzado.
+
+2. En Progreso: Las tareas en las que los colaboradores están trabajando activamente se mueven a esta columna.
+
+3. Completado: Las tareas que han sido revisadas y terminadas con éxito se trasladan a esta columna.
+
+<img witdh=500 src="../img/gitHub-Project.png">
