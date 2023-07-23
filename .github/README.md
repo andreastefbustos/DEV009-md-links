@@ -165,6 +165,8 @@ Broken: 1
 
 ## 4. Diagrama de Flujo
 
+<img width="500" src="../img/Diagrama de Flujo.png" >
+
 ## 5. Guía de Uso
 
 ### Instalación
@@ -177,7 +179,7 @@ Se puede ejecutar de dos maneras:
 npm install github:andreastefbustos/DEV009-md-links
 ```
 
-<img width="500" src="./npm-install-packege.jpeg" >
+<img width="1000" src="../img/npm-install-packege.jpeg" >
 
 2. Desde la terminal del usurio, utilizando el paquete publicado en npm
 
