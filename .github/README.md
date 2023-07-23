@@ -166,6 +166,7 @@ Broken: 1
 ## 4. Diagrama de Flujo
 
 <img width="500" src="../img/Diagrama de Flujo.png" >
+<img width="500" src="../img/Diagrama de Flujo-CLI.png" >
 
 ## 5. Guía de Uso
 
