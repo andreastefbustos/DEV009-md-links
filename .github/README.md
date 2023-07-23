@@ -165,6 +165,8 @@ Broken: 1
 
 ## 4. Diagrama de Flujo
 
+[Elaboración del Diagrama de Flujo utilizando Figma](https://www.figma.com/file/sheqzkCmGatQZH4VKXpCVM/Diagrama-de-Flujo?type=whiteboard&node-id=0%3A1&t=glXJwBKsNfvwN7cg-1)
+
 <img width="500" src="../img/Diagrama de Flujo.png" >
 <img width="500" src="../img/Diagrama de Flujo-CLI.png" >
 
