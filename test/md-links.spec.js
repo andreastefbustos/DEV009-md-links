@@ -1,5 +1,5 @@
 const { mdLinks } = require('../index.js');
-const { validateUrl, showStats, handleError } = require('../data.js')
+const { validateUrl, showStats, handleError, readFileContent } = require('../data.js')
 const axios = require('axios');
 const mockAxios = require('../test/__mock__/axios.js');
 const colors = require('ansi-colors');
@@ -187,3 +187,20 @@ describe('showStats', () => {
   });
 });
 
+const errorFile = './examples_UTF-8-test.txt'; // Ajusta la ruta al archivo dañado
+
+describe('readFileContent', () => {
+  it('should reject the promise when reading a damaged file', () => {
+    return readFileContent(errorFile)
+      .then(() => {
+        // Si la promesa se resuelve, lanzamos un error para indicar que la prueba debería fallar
+        throw new Error('La promesa debería haber sido rechazada.');
+      })
+      .catch(error => {
+        // Verifica que se haya producido un error
+        expect(error).toBeDefined();
+        // Verifica cualquier otra información sobre el error, si es necesario
+        // Ejemplo: expect(error.code).toBe('ENOENT');
+      });
+  });
+});
